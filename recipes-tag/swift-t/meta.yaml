@@ -1,5 +1,5 @@
 {% set name = "swift-t" %}
-{% set version = "1.4.3" %}
+{% set version = "1.5.0" %}
 {% set major = version.rpartition('.')[0] %}
 {% set sha256 = 'f5b26bb1ac427c271e19dff2146101f7c4da03652d66426a291e96638ba15c03' %}
 
@@ -20,17 +20,16 @@ build:
 requirements:
   build:
     - ant
-    - autoconf
-    - gcc_linux-64
-    - make
-    - openjdk
-    - openmpi
+    # - autoconf
+    # - make
+    # - openjdk
+    # - openmpi
     - python
-    - swig
+    # - swig
 
   run:
-    - openmpi
-    - openjdk
+    # - openmpi
+    # - openjdk
     - python
     - zsh
 

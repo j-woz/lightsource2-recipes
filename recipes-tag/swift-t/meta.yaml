@@ -1,5 +1,5 @@
 {% set name = "swift-t" %}
-{% set version = "1.5.0" %}
+{% set version = "1.6.0" %}
 {% set major = version.rpartition('.')[0] %}
 {% set sha256 = 'f5b26bb1ac427c271e19dff2146101f7c4da03652d66426a291e96638ba15c03' %}
 
@@ -9,7 +9,8 @@ package:
   sha256: {{ sha256 }}
 
 source:
-  url: https://swift-lang.github.io/{{ name }}-downloads/{{ major }}/{{ name }}-{{ version }}.tar.gz
+  # url: https://swift-lang.github.io/{{ name }}-downloads/{{ major }}/{{ name }}-{{ version }}.tar.gz
+  path: /tmp/distro/{{ name }}-{{ version }}/{{ name }}-{{ version }}
   patches:
     - swift-t-settings.sh.template.patch
 
@@ -20,24 +21,25 @@ build:
 requirements:
   build:
     - ant
-    # - autoconf
-    # - make
-    # - openjdk
-    # - openmpi
+    - autoconf
+    - make
+    - openjdk
+    - gcc
+    - openmpi
     - python
-    # - swig
+    - swig
 
   run:
-    # - openmpi
-    # - openjdk
+    - openmpi
+    - openjdk
     - python
     - zsh
 
 test:
   commands:
     - swift-t -h
-    - stc -h
-    - turbine -h
+    - swift-t -v
+    - false
 
 about:
   home: http://swift-lang.org/Swift-T

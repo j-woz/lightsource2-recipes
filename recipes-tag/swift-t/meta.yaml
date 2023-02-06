@@ -39,7 +39,7 @@ test:
   commands:
     - swift-t -h
     - swift-t -v
-    - false
+# - false
 
 about:
   home: http://swift-lang.org/Swift-T

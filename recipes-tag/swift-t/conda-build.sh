@@ -3,4 +3,5 @@ set -eu
 
 set -x
 which conda
-conda build -c conda-forge --skip-existing .
+conda build -c "bioconda/label/cf201901" -c conda-forge \
+      --skip-existing --output .

@@ -1,2 +1,4 @@
 
+Install conda package conda-build
+
 Use ./conda-build.sh to build the Conda package.

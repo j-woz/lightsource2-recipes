@@ -11,27 +11,27 @@ package:
 source:
   # url: https://swift-lang.github.io/{{ name }}-downloads/{{ major }}/{{ name }}-{{ version }}.tar.gz
   path: /tmp/distro/{{ name }}-{{ version }}/{{ name }}-{{ version }}
-  patches:
-    - swift-t-settings.sh.template.patch
+  # patches:
+  #   - swift-t-settings.sh.template.patch
 
 build:
   number: 1
-  skip: True  # [win]
 
 requirements:
   build:
-    - ant
+#    - ant
     - autoconf
-    - make
-    - openjdk
     - gcc
-    - openmpi
+    - make
+#    - openjdk
+    - openmpi-mpicc
     - python
     - swig
+    - zsh
 
-  run:
-    - openmpi
-    - openjdk
+run:
+    - openmpi-mpicc
+#    - openjdk
     - python
     - zsh
 
@@ -39,7 +39,7 @@ test:
   commands:
     - swift-t -h
     - swift-t -v
-# - false
+#< - false
 
 about:
   home: http://swift-lang.org/Swift-T

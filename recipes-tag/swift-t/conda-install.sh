@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eux
 
+# Interactive conda install tests
+
 which conda
 
 # Install these before swift-t:

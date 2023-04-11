@@ -26,6 +26,7 @@ requirements:
     - openjdk
     - mpich-mpicc
     - python==3.9
+    - r
     - swig
     - zsh
   run:

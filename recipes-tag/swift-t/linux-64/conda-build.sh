@@ -1,5 +1,13 @@
-#!/bin/bash -norc
+#!/bin/zsh
 set -eu
+
+R=""
+zparseopts -D -E R=R
+
+if (( ${#R} ))
+then
+  export ENABLE_R=1
+fi
 
 LOG=conda-build.log
 if [[ -f $LOG ]]
@@ -7,8 +15,6 @@ then
   mv -v --backup=numbered $LOG $LOG.bak
   echo
 fi
-
-# mkdir -pv out
 
 (
   echo "using conda:"

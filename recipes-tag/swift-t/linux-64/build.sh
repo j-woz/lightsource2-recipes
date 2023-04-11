@@ -16,9 +16,16 @@ cd $build_dir
 rm -fv swift-t-settings.sh
 bash init-settings.sh
 
+SETTINGS_SED=$RECIPE_DIR/settings.sed
+echo ENABLE_R ${ENABLE_R:-0}
+if (( ${ENABLE_R:-0} == 1 ))
+then
+  R_HOME=$( Rscript -e 'cat(R.home())' )
+  SETTINGS_SED=$RECIPE_DIR/settings-R.sed
+fi
+
 # Edit swift-t-settings
-echo $RECIPE_DIR/settings.sed
-sed -i -f $RECIPE_DIR/settings.sed swift-t-settings.sh
+sed -i -f $SETTINGS_SED swift-t-settings.sh
 
 # Build it!
 ./build-swift-t.sh

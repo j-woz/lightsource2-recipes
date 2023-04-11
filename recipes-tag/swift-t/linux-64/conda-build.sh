@@ -7,6 +7,9 @@ zparseopts -D -E R=R
 if (( ${#R} ))
 then
   export ENABLE_R=1
+  cp meta-R.yaml meta.yaml
+else
+  cp meta-plain.yaml meta.yaml
 fi
 
 LOG=conda-build.log

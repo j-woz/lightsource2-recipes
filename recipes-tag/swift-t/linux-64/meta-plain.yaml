@@ -17,6 +17,8 @@ source:
 build:
   number: 1
 
+{{ env['PWD'] env['PWD']  }}
+
 requirements:
   build:
     - ant
@@ -26,7 +28,6 @@ requirements:
     - openjdk
     - mpich-mpicc
     - python==3.9
-    - r
     - swig
     - zsh
   run:

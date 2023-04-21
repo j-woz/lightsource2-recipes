@@ -16,6 +16,8 @@ source:
 
 build:
   number: 1
+  script_env:
+    - ENABLE_R=1
 
 requirements:
   build:
@@ -25,15 +27,19 @@ requirements:
     - make
     - openjdk
     - mpich-mpicc
-    - python==3.9
-#     - r
+    - python==3.9.16
+    - r
+    - r-rinside
     - swig
     - zsh
   run:
+    - gcc
     - mpich-mpicc
     - openjdk
-    - python==3.9
-#     - r
+    - python==3.9.16
+    - r
+    - r-rinside
+    - swig
     - zsh
 
 test:

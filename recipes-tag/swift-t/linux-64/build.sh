@@ -1,7 +1,11 @@
 #!/bin/bash
 set -eu
-set +x
+set -o pipefail
 
+# BUILD SH
+# NOTE: No environment variables are inherited into here.
+
+echo "BUILD.SH START $( date '+%Y-%m-%d %H:%M:%S' )"
 echo PREFIX $PREFIX
 
 install -d $PREFIX/bin
@@ -17,18 +21,28 @@ rm -fv swift-t-settings.sh
 bash init-settings.sh
 
 SETTINGS_SED=$RECIPE_DIR/settings.sed
-echo ENABLE_R ${ENABLE_R:-0}
+echo ENABLE_R=${ENABLE_R:-0}
+
 if (( ${ENABLE_R:-0} == 1 ))
 then
-  R_HOME=$( Rscript -e 'cat(R.home())' )
+  if ! which R > /dev/null
+  then
+    echo "build.sh: Could not find Rscript!"
+    exit 1
+  fi
+  export R_HOME=$( R RHOME )
   SETTINGS_SED=$RECIPE_DIR/settings-R.sed
+  R --vanilla --no-echo \
+    -e 'install.packages("RInside", repos="http://cran.us.r-project.org")'
 fi
 
 # Edit swift-t-settings
 sed -i -f $SETTINGS_SED swift-t-settings.sh
 
 # Build it!
-./build-swift-t.sh
+# Merge output streams to try to prevent buffering
+#       problems with conda build
+./build-swift-t.sh 2>&1 | tee build-swift-t.out
 
 # Setup symlinks for utilities
 ### BIN ###
@@ -59,3 +73,5 @@ cd $PREFIX/scripts
 for file in turbine-config.sh; do
     ln -sv ../swift-t/turbine/scripts/$file .
 done
+
+echo "BUILD.SH STOP $( date '+%Y-%m-%d %H:%M:%S' )"

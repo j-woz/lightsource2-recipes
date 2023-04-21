@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -eu
 
-# CONDA INSTALL SH
+# MAMBA INSTALL SH
 # NOTE: conda install from file does not install dependencies!
 #       Cf. https://docs.anaconda.com/free/anaconda/packages/install-packages
 # Install dependencies
@@ -10,7 +10,7 @@ set -eu
 
 R=""
 zparseopts -D -E R=R
-if (( ${#R} )) R="r"
+if (( ${#R} )) R=( r r-rinside )
 
 if (( ${#*} != 1 )) {
   print "Provide PKG!"
@@ -21,20 +21,21 @@ PKG=$1
 ls -l $PKG
 md5sum $PKG
 
-which conda
-conda env list
+which mamba
+mamba env list
+
+DEPS=( ant
+       autoconf
+       gcc
+       make
+       mpich-mpicc
+       openjdk
+       python
+       swig
+       zsh
+       $R
+     )
 
 set -x
-conda install -c conda-forge \
-      ant \
-      autoconf \
-      gcc \
-      make \
-      mpich-mpicc \
-      openjdk \
-      python \
-      swig \
-      zsh \
-      $R
-
-conda install $PKG
+mamba install --yes -c conda-forge $DEPS
+mamba install $PKG

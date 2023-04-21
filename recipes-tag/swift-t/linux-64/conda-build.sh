@@ -6,7 +6,6 @@ zparseopts -D -E R=R
 
 if (( ${#R} ))
 then
-  export ENABLE_R=1
   cp -v meta-R.yaml meta.yaml
 else
   cp -v meta-plain.yaml meta.yaml
@@ -25,6 +24,7 @@ fi
   echo
 
   set -x
+  conda build purge-all
   conda build \
         -c conda-forge \
         --dirty \
@@ -34,13 +34,14 @@ echo
 echo "conda build succeeded."
 echo
 
-LINES=( $( grep -A 1 "anaconda upload" $LOG ) )
-FILE=${LINES[-1]}
+UPLOAD=( $( grep -A 1 "anaconda upload" $LOG ) )
+FILE=${UPLOAD[-1]}
 
 (
   echo
   echo md5sum: $( md5sum $FILE )
 ) | tee --append $LOG
+echo
 
 # --debug
 

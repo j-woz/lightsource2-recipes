@@ -1,4 +1,9 @@
 
 Install conda package conda-build
 
-Use ./conda-build.sh to build the Conda package.
+== Test procedure
+
+* Use `./conda-build.sh` to build the Conda package.
+** This always does `conda build purge-all`, which is necessary
+* Use `conda-install.sh` to install the Conda package
+** This installs the deps separately

@@ -7,3 +7,39 @@ Install conda package conda-build
 ** This always does `conda build purge-all`, which is necessary
 * Use `conda-install.sh` to install the Conda package
 ** This installs the deps separately
+
+== Anaconda tips
+
+Input files:
+
+* meta.yaml
+** Used by `conda build` to find metadata and dependencies
+* build.sh
+** Executed by `conda build` to compile C code, etc.
+
+== What happens
+
+. conda build
+.. Conda creates a temporary environment
+.. Installs your packages from meta.yaml
+.. Runs your build.sh script in that environment
+.. Bundles the environment
+. conda install
+.. Unpacks the bundle
+.. String renaming for libraries and scripts
+.. Copies everything into the conda space
+
+== Supported platforms
+
+These are standard directory names:
+
+* linux-64: Works
+* osx-64: WIP
+* osx-arm64: TODO
+
+== Maintainer workflow
+
+== To create a new platform
+
+* Copy the platform-specific directory
+* Run the conda-build script and debug it

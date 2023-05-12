@@ -2,6 +2,7 @@
 set -eu
 
 # CONDA INSTALL SH
+# This is mostly for maintainer testing
 # NOTE: conda install from file does not install dependencies!
 #       Cf. https://docs.anaconda.com/free/anaconda/packages/install-packages
 # Install dependencies
